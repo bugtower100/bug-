@@ -47,9 +47,9 @@
   const FINGER_ALLOWED_FIELDS = ["money", "level", "experience", "fields", "fishPond", "lastSignInDate", "lastStealTime", "weather"];
   const NUMERIC_FIELDS = ["money", "level", "experience", "fields", "fishPond", "lastStealTime"];
   const VOYAGE_TYPES = {
-    "近海远航": { duration: 30 * 60 * 1000, moneyMin: 80, moneyMax: 160, expMin: 20, expMax: 40, baitMin: 0, baitMax: 2 },
-    "深海远航": { duration: 60 * 60 * 1000, moneyMin: 180, moneyMax: 320, expMin: 35, expMax: 80, baitMin: 1, baitMax: 3 },
-    "远洋远航": { duration: 120 * 60 * 1000, moneyMin: 320, moneyMax: 560, expMin: 60, expMax: 120, baitMin: 2, baitMax: 5 }
+    "近海远航": { duration: 30 * 60 * 1000, cost: 50, moneyMin: 80, moneyMax: 160, expMin: 20, expMax: 40, baitMin: 0, baitMax: 2 },
+    "深海远航": { duration: 60 * 60 * 1000, cost: 100, moneyMin: 180, moneyMax: 320, expMin: 35, expMax: 80, baitMin: 1, baitMax: 3 },
+    "远洋远航": { duration: 120 * 60 * 1000, cost: 150, moneyMin: 320, moneyMax: 560, expMin: 60, expMax: 120, baitMin: 2, baitMax: 5 }
   };
   const STORE = {
     "防风草种子": { price: 50, level: 1, type: "seed" },
@@ -402,7 +402,7 @@
 
   function expRequiredForThisLevel(level) {
     const lv = Math.max(1, Math.floor(Number(level) || 1));
-    return lv * 100;
+    return lv * 500;
   }
 
   function totalExpToReachLevel(level) {
@@ -1061,19 +1061,24 @@
         seal.replyToSender(ctx, msg, "目标没有可偷的成熟作物。");
         return seal.ext.newCmdExecuteResult(true);
       }
-      const mustBypassDog = target.hasDog && Number(user.dogBiteFailStreak || 0) >= 3;
-      if (target.hasDog && !mustBypassDog && Math.random() < DOG_STEAL_FAIL_RATE) {
-        user.lastStealTime = now;
+      if (target.hasDog && Math.random() < DOG_STEAL_FAIL_RATE) {
         user.dogBiteFailStreak = Number(user.dogBiteFailStreak || 0) + 1;
+        if (user.dogBiteFailStreak >= 3) {
+          user.lastStealTime = now;
+          user.dogBiteFailStreak = 0;
+          saveUser(ext, user);
+          seal.replyToSender(ctx, msg, "偷窃失败：你连续被土狗咬了3次，已进入1分钟冷却。");
+          return seal.ext.newCmdExecuteResult(true);
+        }
         saveUser(ext, user);
-        seal.replyToSender(ctx, msg, `偷窃失败：你被目标农场的土狗咬了，已进入1分钟冷却。连续被咬${user.dogBiteFailStreak}次。`);
+        seal.replyToSender(ctx, msg, `偷窃失败：你被目标农场的土狗咬了。再被咬${3 - user.dogBiteFailStreak}次将进入1分钟冷却。`);
         return seal.ext.newCmdExecuteResult(true);
       }
-      const targetField = matureFields[randomInt(0, matureFields.length - 1)];
+      const targetField = matureFields[0];
       const slot = target.crops[targetField];
       const product = cropOutput(slot.seed);
       addWarehouseItem(user, product, 1);
-      slot.stolen = true;
+      delete target.crops[targetField];
       user.lastStealTime = now;
       user.dogBiteFailStreak = 0;
       saveUser(ext, user);
@@ -1297,7 +1302,7 @@
           const cfg = VOYAGE_TYPES[k];
           const wreck = SHIPWRECK_CONFIG[k];
           const chanceText = wreck ? `${Math.round(wreck.chance * 100)}%` : "30%";
-          menu.push(`${k} - 耗时${Math.floor(cfg.duration / 60000)}分钟 - 沉船概率${chanceText}`);
+          menu.push(`${k} - 花费${cfg.cost || 0}金币 - 耗时${Math.floor(cfg.duration / 60000)}分钟 - 沉船概率${chanceText}`);
         }
         seal.replyToSender(ctx, msg, menu.join("\n"));
         return seal.ext.newCmdExecuteResult(true);
@@ -1316,8 +1321,14 @@
         seal.replyToSender(ctx, msg, "探索类型不存在，请先使用 .远航 查看菜单。");
         return seal.ext.newCmdExecuteResult(true);
       }
+      const cost = Number(cfg.cost || 0);
+      if (user.money < cost) {
+        seal.replyToSender(ctx, msg, `金币不足，开启${type}需要${cost}金币，你当前${user.money}。`);
+        return seal.ext.newCmdExecuteResult(true);
+      }
       const shipwreckCfg = SHIPWRECK_CONFIG[type] || { chance: 0.3, alertDelayMs: 60 * 60 * 1000 };
       const hasShipwreckEvent = Math.random() < shipwreckCfg.chance;
+      user.money -= cost;
       user.explorationType = type;
       user.explorationStartTime = Date.now();
       saveUser(ext, user);
@@ -1334,7 +1345,7 @@
         shipwreckAlerted: false
       });
       saveVoyageTasks(ext, tasks);
-      seal.replyToSender(ctx, msg, `已开启${type}，预计${Math.floor(cfg.duration / 60000)}分钟后完成。`);
+      seal.replyToSender(ctx, msg, `已开启${type}（花费${cost}金币），预计${Math.floor(cfg.duration / 60000)}分钟后完成。`);
       return seal.ext.newCmdExecuteResult(true);
     };
 
