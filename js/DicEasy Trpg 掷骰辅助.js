@@ -241,6 +241,9 @@ cmdet.solve = (ctx, msg, cmdArgs) => {
                         if (judge > 0) {
                             output += `补正值为${judge}\n最终的结果为：2D6=${finalDice1}+${finalDice2}+${judge}=${finalResult}`;
                         }
+                        else if (judge === 0) {
+                            output += `补正值为${judge}\n最终的结果为：2D6=${finalDice1}+${finalDice2}=${finalResult}`;
+                        }
                         else {
                             output += `补正值为${judge}\n最终的结果为：2D6=${finalDice1}+${finalDice2}${judge}=${finalResult}`;
                         }
@@ -259,6 +262,9 @@ cmdet.solve = (ctx, msg, cmdArgs) => {
                     result = judge + result
                     if (judge > 0) {
                         seal.replyToSender(ctx, msg, `${name}进行了补正值为${judge}的检定，结果为：2D6=${dice1}+${dice2}+${judge}=${result}`)
+                    }
+                    else if (judge === 0) {
+                        seal.replyToSender(ctx, msg, `${name}进行了补正值为${judge}的检定，结果为：2D6=${dice1}+${dice2}=${result}`)
                     }
                     else {
                         seal.replyToSender(ctx, msg, `${name}进行了补正值为${judge}的检定，结果为：2D6=${dice1}+${dice2}${judge}=${result}`)
