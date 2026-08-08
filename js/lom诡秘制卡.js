@@ -4,7 +4,6 @@
 // @version      1.0.0
 // @description  lom诡秘人物作成，改编自子良的诡秘车卡自定义回复，使用方式 .lom诡秘制卡，查看制卡类型指令\n部分制卡需要安装牌堆，请自行在群文件搜索
 // @timestamp    2024-04-30
-// @license      MIT
 // @homepageURL  https://github.com/Szzrain
 // ==/UserScript==
 if (!seal.ext.find('lom诡秘制卡')) {
