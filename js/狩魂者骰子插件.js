@@ -4,7 +4,6 @@
 // @version      2.1.0
 // @description  狩魂者TRPG骰子系统插件，使用.sh help 查看帮助。改编自Desom-fu大佬（121096913）的狩魂者插件，特别鸣谢Desom-fu大佬的无私分享！
 // @timestamp    1754370401
-// @license      MIT
 // @homepageURL  https://github.com/bugtower100/bug-repository
 // ==/UserScript==
 
