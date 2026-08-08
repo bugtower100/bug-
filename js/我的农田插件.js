@@ -4,7 +4,6 @@
 // @version      2.0.0
 // @description  我的农田重置版，拥有农田、商店、钓鱼、远航与金手指管理插件；增加了新的功能同时兼容了原先数据。使用 .农场指令 查看系列指令\n感谢小绿老板的支持，让主播能够有动力重置着一坨插件！希望大家玩的开心\n自定义商品、鱼塘请使用配套的 我的农田_配置编辑器.html
 // @timestamp    2026-03-10
-// @license      MIT
 // @homepageURL  https://github.com/bugtower100/bug-repository
 // ==/UserScript==
 
