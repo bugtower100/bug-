@@ -5,7 +5,6 @@
 // @description  INSANE骰点及plot预设，使用ins help查看详情
 // @timestamp    20240714
 // @diceRequireVer 1.0.0
-// @license      Apache-2
 // @homepageURL  https://github.com/sealdice/javascript
 // ==/UserScript==
 
