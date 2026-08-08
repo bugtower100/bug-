@@ -5,7 +5,6 @@
 // @description  基于DicEasy Trpg规则创作的快速掷骰规则
 // @timestamp    20241031
 // @diceRequireVer 1.0.0
-// @license      Apache-2
 // @homepageURL  https://github.com/bugtower100/bug-repository
 // ==/UserScript==
 
