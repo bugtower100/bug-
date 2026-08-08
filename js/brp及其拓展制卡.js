@@ -4,7 +4,6 @@
 // @version      1.0.0
 // @description  brp拓制卡人物作成，基于szz的ark人物卡作成修改而成，使用方式 .brp拓制卡，查看brp及其拓展制卡指令（后面有拓展再更新）
 // @timestamp    2024-04-30
-// @license      MIT
 // @homepageURL  https://github.com/Szzrain
 // ==/UserScript==
 if (!seal.ext.find('brp拓制卡')) {
