@@ -4,8 +4,6 @@
 // @version      1.0.1
 // @description  绿色三角洲TRPG规则插件，支持完整的角色卡、检定、理智检定等功能，使用 .DGhelp 获取帮助 
 // @timestamp    1759931652
-// 2025/1/5
-// @license      MIT
 // @homepageURL  https://github.com/sealdice/sealdice-dg
 // ==/UserScript==
 
