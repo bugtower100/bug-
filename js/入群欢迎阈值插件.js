@@ -4,7 +4,6 @@
 // @version      1.0.0
 // @description  新成员入群时，通过OneBot正向WS获取群信息(member_count)并按阈值发送不同回复，不要拉太快，至少隔12s拉人。\n开启/关闭使用:.入群回复 on/off 进行控制。\n该插件为付费委托插件公开，感谢程尹，因为他的社恐，让骰主想要做这个插件！
 // @timestamp    2026-03-07
-// @license      MIT
 // @homepageURL  https://github.com/bugtower100/bug-repository
 // ==/UserScript==
 
