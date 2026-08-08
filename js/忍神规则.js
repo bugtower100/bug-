@@ -5,7 +5,6 @@
 // @description  非常简易的忍神检定骰点，使用.rnj help查看说明（因为本人没玩过忍神所以可能理解有偏差，烦请各位指出）
 // @timestamp    20240708
 // @diceRequireVer 1.0.0
-// @license      Apache-2
 // @homepageURL  https://github.com/sealdice/javascript
 // ==/UserScript==
 
