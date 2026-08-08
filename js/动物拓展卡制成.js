@@ -4,7 +4,6 @@
 // @version      1.0.0
 // @description  动物拓展人物作成，基于szz的ark人物卡作成修改而成，使用方式 .动物拓展，查看对应动物类型指令
 // @timestamp    2024-04-30
-// @license      MIT
 // @homepageURL  https://github.com/Szzrain
 // ==/UserScript==
 if (!seal.ext.find('动物拓展制卡')) {
