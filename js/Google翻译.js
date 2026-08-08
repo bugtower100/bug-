@@ -4,7 +4,6 @@
 // @version      1.0.0
 // @description  调用Google翻译api，可支持多种语言翻译，详情请用.翻译help查看。第一次写插件有bug请及时和我反馈。
 // @timestamp    2024-04-09
-// @license      MIT
 // @homepageURL  https://github.com/sealdice/javascript
 // ==/UserScript==
 if (!seal.ext.find("翻译")) {
