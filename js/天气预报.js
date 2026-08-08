@@ -4,7 +4,6 @@
 // @version      3.0.0
 // @description  支持开关控制的定时天气播报系统（数据来源tx天气）
 // @timestamp    2024-10-16
-// @license      MIT
 // ==/UserScript==
 
 //const qqs = ['QQ:2068281904', 'QQ:920868587', 'QQ:2700037224'];
